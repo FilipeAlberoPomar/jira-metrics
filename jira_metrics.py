@@ -14,7 +14,7 @@ with open("jira_production.cfg") as config_file:
     config = json.load(config_file)
 
 cfg_jirauser = config["jira"]["user"]
-cfg_jirakey = config["jira"]["apikey"]
+cfg_jiratoken = config["jira"]["apitoken"]
 cfg_jiraserver = config["jira"]["server"]
 
 cfg_start = config["start_date"]
@@ -70,14 +70,14 @@ def get_tickets(board_columns, query, sprints) -> dict:
     for key in sprints.keys():
         sprint_data.update({key: []})
 
-    jira = JIRA({'server': cfg_jiraserver}, basic_auth=(cfg_jirauser, cfg_jirakey))
+    jira = JIRA({'server': cfg_jiraserver}, basic_auth=(cfg_jirauser, cfg_jiratoken))
 
     #pagination (maxResults is hard-capped at 100 in the backend)
     start_at = 0
     increment = 100
 
     #tickets = jira.search_issues(query, maxResults=increment, startAt=start_at, fields='resolutiondate, issuetype, created')
-    print(query)
+    print("Here's your JQL: " + query)
     tickets = jira.search_issues(query, maxResults=increment, startAt=start_at)
     total_tickets = len(tickets)
 
@@ -154,7 +154,7 @@ def get_tickets(board_columns, query, sprints) -> dict:
                 "id": ticket.key,
                 "type": ticket.fields.issuetype.name,
                 "sprint": get_sprint_name((ticket.fields.resolutiondate[0:10]), sprints),
-                "creator": "NA",  # ticket.fields.creator # Commenting out due to GDPR
+                "creator": ticket.fields.creator,
                 "created_date": ticket.fields.created[0:10],  # string obj, remove time
                 "start_date": start_date,
                 "done_date": ticket.fields.resolutiondate[0:10],
@@ -162,9 +162,9 @@ def get_tickets(board_columns, query, sprints) -> dict:
                 "lead_time": workdays_between(ticket.fields.created[0:10], ticket.fields.resolutiondate[0:10]),
                 "moved_left": moved_left,
                 "cross_layers": cross_layers,
-                "columns_data": board_transitions  # contains dictionary (key = column_name, values: date_in, time_in)
-                # "summary": ticket.fields.summary,
-                # "raw_fields": ticket.raw['fields']
+                "columns_data": board_transitions,  # contains dictionary (key = column_name, values: date_in, time_in)
+                "summary": ticket.fields.summary, 
+                # "raw_fields": ticket.raw['fields'] # useful for debugging hairy issues
             }
 
             sprint_data[card["sprint"]].append(card)
@@ -230,11 +230,13 @@ def create_sprint_summary_csv(sprint_data, ref_columns, filename):
 
         for sprint, cards in sprint_data.items():
 
+            tickets_count = len(cards)
             story_count = 0
             bug_count = 0
             spike_count = 0
             task_count = 0
-            tickets_count = len(cards)
+            avg_cycletime = 0
+            avg_leadtime = 0
             cycletimes = []
             leadtimes= []
            
@@ -251,11 +253,16 @@ def create_sprint_summary_csv(sprint_data, ref_columns, filename):
                 cycletimes.append(card["cycle_time"])
                 leadtimes.append(card["lead_time"])
 
+            try:
+                avg_cycletime = np.average(cycletimes)
+                avg_leadtime = np.average(leadtimes)
+            except:
+                print("Error generating average cycletime or leadtime")
+
             line = "%s,%s,%s,%s,%s,%s,%s,%s" % (
-                sprint, tickets_count, story_count, bug_count, spike_count, task_count, np.average(cycletimes), np.average(leadtimes))
+                sprint, tickets_count, story_count, bug_count, spike_count, task_count, avg_cycletime, avg_leadtime)
 
             file.write(line + "\n")
-
 
 
 # Manages exceptions when extracting keys from a dictionary
@@ -292,7 +299,6 @@ def generate_reports():
             sprint_data = get_tickets(board_columns, query, sprints)
 
             if csv_details:
-                print(sprint_data)
                 create_sprint_details_csv(sprint_data, board_columns, csv_details)
 
             if csv_summary:
