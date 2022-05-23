@@ -13,17 +13,17 @@ Contains information on each card completed and includes:
 - **Cycle time**
 - **Lead time**
 - **Moved left:** whether the ticket moved left on the board
-- **_State entrance:_** showing when the ticket entered each board column
-- **_Days per state_** 
+- **_"State entrance:"_** showing when the ticket entered each board column
+- **_"Days per state:"_** how many days the ticket stayed on each column 
 
 <img width="594" alt="Screenshot 2022-05-23 at 16 04 04" src="https://user-images.githubusercontent.com/76520153/169840793-08114787-2316-43fe-9139-5f5bc89c799f.png">
 
 ### Summary.csv
-Gives you a "birds-eye-view of each sprint. You get:
+Gives you a "birds-eye-view" of each sprint. You get:
 
-- **Throughput** (number of tickets done)
-- **Bugs** (number o bugs done)
-- **Spikes** (ditto)
+- **Throughput:** number of tickets done
+- **Bugs:** number o bugs done
+- **Spikes:** ditto
 - **Tasks**
 - **Average cycle time**
 - **Average lead time**
@@ -34,7 +34,7 @@ Gives you a "birds-eye-view of each sprint. You get:
 
 The easiest way to install is just to download _jira_metrics.py_ and _jira_metrics.cfg_ to your computer.  
 
-You will also need to install two dependencies. 
+You will also need to install two project dependencies. 
 
 On MacOS:
 
