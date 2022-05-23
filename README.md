@@ -46,12 +46,12 @@ On MacOS
 
 ### Get your API token
 
-Before your first run you will need to generate an api key from your Jira instance. It's pretty easy:
+Before your first run you will need to generate an API Token from your Jira instance. It's pretty easy:
 
 1. Click on your profile picture (top right)
 2. Account Settings
 3. Security
-4. API token > Create
+4. API Token > Create
 
 
 ### Configure your project details
@@ -71,7 +71,7 @@ Now you need to add your project information to your _jira_metrics.cfg_ file. It
 	},
 	"jira":{
 		"user": "<your jira user name>",
-		"apikey": "<API from jira>",
+		"apitoken": "<API from jira>",
 		"server": "<URL to your instance>"
 	},
 	"teams": [
@@ -80,14 +80,31 @@ Now you need to add your project information to your _jira_metrics.cfg_ file. It
 	        "jira_name": "<jira project name>",
 	        "jira_columns": ["Column name", "Another column", "Yet another column"],
 	        "details_filename": "details.csv",
-			"summary_filename": "summary.csv",
-			"sprint_names": {  }
+		"summary_filename": "summary.csv",
+		"sprint_names": {  }
 		}
 	],
 	"holidays": ["YYYY-MM-DD", "YYYY-MM-DD"],
 	"jql_done": "project = %s AND issuetype in (Bug, Story) AND status = Done  AND resolutionDate >= '%s' AND resolutionDate <= '%s' order by resolutiondate asc"
 }
 ```
+- start_date: report starting date (weekends are automtically ignored)
+- end-date: report end date (weekends are automtically ignored)
+- sprint_names: are just nicknames to your sprints to show on the reports
+- jira: your jira credentials
+- teams: 
+	- name: the name of your team
+	- jira_name: the name of the project in Jira
+	- jira_columns: are the column names on your board (warning: do NOT add the "To Do" and "Done" columns here)
+	- details_filename: it's the output filename
+	- summary_filename: it's the other output filename
+- holidays: dates to exclude
+- jql_done: is the jira query that will retrieve your tickets
 
+## Execution
+
+On MacOS:
+
+```% python3 jira_extractor.py ```
 
 
