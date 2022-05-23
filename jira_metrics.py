@@ -10,7 +10,7 @@ import numpy as np
 from datetime import datetime
 import json
 
-with open("jira_metrics.cfg") as config_file:
+with open("jira_production.cfg") as config_file:
     config = json.load(config_file)
 
 cfg_jirauser = config["jira"]["user"]
@@ -70,7 +70,8 @@ def get_tickets(board_columns, query, sprints) -> dict:
     for key in sprints.keys():
         sprint_data.update({key: []})
 
-    jira = JIRA({"server": cfg_jiraserver}, basic_auth=(cfg_jirauser, cfg_jirakey))
+
+    jira = JIRA({'server': cfg_jiraserver}, basic_auth=(cfg_jirauser, cfg_jirakey))
 
     #pagination (maxResults is hard-capped at 100 in the backend)
     start_at = 0
@@ -229,54 +230,33 @@ def create_sprint_summary_csv(sprint_data, ref_columns, filename):
         file.write(header + "\n")
 
         for sprint, cards in sprint_data.items():
-            total_cycletime = 0
-            total_leadtime = 0
-            total_stories = 0
-            total_bugs = 0
-            total_spikes = 0
-            total_tasks = 0
-            avg_cycletime = 0
-            avg_leadtime = 0
-            total_cards = len(cards)
 
-            # Data structure to manipulate total and average days per column
-            days_in_columns = {}
-            for column in ref_columns:
-                days_in_columns[column] = {'total': 0, 'average': 0}
-
+            story_count = 0
+            bug_count = 0
+            spike_count = 0
+            task_count = 0
+            tickets_count = len(cards)
+            cycletimes = []
+            leadtimes= []
+           
             for card in cards:
-                total_cycletime += card["cycle_time"]
-                total_leadtime += card["lead_time"]
                 if card["type"] == "Story":
-                    total_stories += 1
+                    story_count += 1
                 if card["type"] == "Bug":
-                    total_bugs += 1
+                    bug_count += 1
                 if card["type"] == "Spike":
-                    total_spikes += 1
+                    spike_count += 1
                 if card["type"] == "Task":
-                    total_tasks += 1
+                    task_count += 1
 
-                # Card did NOT move left? Add its time on each column to create averages
-                if not card['moved_left']:
-                    for column in card['columns_data']:
-                        days_in = 0
-                        if card['columns_data'][column]['days_in'] != '':
-                            days_in = int(card['columns_data'][column]['days_in'])
-                        days_in_columns[column]['total'] += days_in
-
-            if total_cards != 0:
-                avg_cycletime = round(total_cycletime / total_cards, 1)
-                avg_leadtime = round(total_leadtime / total_cards, 1)
-                for column in days_in_columns:
-                    days_in_columns[column]['average'] = round(days_in_columns[column]['total'] / total_cards, 1)
+                cycletimes.append(card["cycle_time"])
+                leadtimes.append(card["lead_time"])
 
             line = "%s,%s,%s,%s,%s,%s,%s,%s" % (
-                sprint, total_cards, total_stories, total_bugs, total_spikes, total_tasks, avg_cycletime, avg_leadtime)
-
-            for column in days_in_columns:
-                line = line + ',' + str(days_in_columns[column]['average'])
+                sprint, tickets_count, story_count, bug_count, spike_count, task_count, np.average(cycletimes), np.average(leadtimes))
 
             file.write(line + "\n")
+
 
 
 # Manages exceptions when extracting keys from a dictionary

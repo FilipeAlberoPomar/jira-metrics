@@ -1,0 +1,8 @@
+Sprint,Ticket,Creator,Type,CycleTime,LeadTime,MovedLeft,CrossLayers,In Progress Date,Review Date,Ready to Test Date,Testing Date,Product Acceptance Tests Date,Done Date,In Progress Days,Review Days,Ready to Test Days,Testing Days,Product Acceptance Tests Days,Done Days
+chile1,GAT-1505,NA,Task,4,23,False,False,2022-05-03,2022-05-09,2022-05-09,2022-05-09,,2022-05-09,4,0,0,0,,0
+chile1,GAT-1585,NA,Task,8,11,False,False,2022-04-27,2022-05-03,2022-05-09,2022-05-09,,2022-05-09,4,4,0,0,,0
+chile1,GAT-1562,NA,Story,3,12,False,False,2022-05-04,2022-05-04,2022-05-09,2022-05-09,,2022-05-09,0,3,0,0,,0
+chile1,GAT-1571,NA,Story,2,11,False,False,2022-05-05,2022-05-06,2022-05-09,2022-05-09,,2022-05-09,1,1,0,0,,0
+chile1,GAT-1470,NA,Story,4,30,False,False,2022-05-03,2022-05-05,2022-05-09,2022-05-09,,2022-05-09,2,2,0,0,,0
+chile1,GAT-1511,NA,Bug,0,23,False,False,,,,,,2022-05-09,,,,,,0
+chile1,GAT-1431,NA,Bug,0,36,False,False,,,,,,2022-05-09,,,,,,0
