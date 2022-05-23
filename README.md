@@ -10,26 +10,25 @@ The script will generate two csv files with your sprint data.
 ### Details.csv
 Contains information on each card completed and includes:
 
-- **Ticket number**
+- **Ticket number:** the unique id of the ticket
 - **Ticket type:** story, bug, task
-- **Cycle time**
-- **Lead time**
+- **Cycle time:** number of days "in progress"
+- **Lead time:** number of days between creation and Done
 - **Moved left:** whether the ticket moved left on the board
-- **_"State entrance:"_** showing when the ticket entered each board column
-- **_"Days per state:"_** how many days the ticket stayed on each column 
+- **_"State entrance:"_** shows the date of entrance on each board column
+- **_"Days per state:"_** shows the number of days the ticket was on each board column 
 
 <img width="594" alt="Screenshot 2022-05-23 at 16 04 04" src="https://user-images.githubusercontent.com/76520153/169840793-08114787-2316-43fe-9139-5f5bc89c799f.png">
 
 ### Summary.csv
 Gives you a "birds-eye-view" of each sprint. You get:
 
-
-- **Throughput:** number of tickets done
-- **Bugs:** number o bugs done
-- **Spikes:** ditto
-- **Tasks**
-- **Average cycle time**
-- **Average lead time**
+- **Throughput:** number of tickets 
+- **Bugs:** number of bugs
+- **Spikes:** number of spikes
+- **Tasks:** number of tasks
+- **Average cycle time:** average number of days "in progress"
+- **Average lead time:** average number of days between creation to Done
 
 <img width="527" alt="Screenshot 2022-05-23 at 16 07 48" src="https://user-images.githubusercontent.com/76520153/169840851-00caf71f-2ccc-4453-9138-ce4542e5eb4a.png">
 
@@ -89,8 +88,8 @@ Now you need to add your project information to your _jira_metrics.cfg_ file. It
 	"jql_done": "project = %s AND issuetype in (Bug, Story) AND status = Done  AND resolutionDate >= '%s' AND resolutionDate <= '%s' order by resolutiondate asc"
 }
 ```
-- **start_date:** report starting date (weekends are automtically ignored)
-- **end-date:** report end date (weekends are automtically ignored)
+- **start_date:** report start date
+- **end-date:** report end date
 - **sprint_names:** are just nicknames to your sprints to show on the reports
 - **jira:** your jira credentials
 - **teams:** 
