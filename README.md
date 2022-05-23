@@ -1,4 +1,6 @@
 # Jira Metrics
+<img src="https://user-images.githubusercontent.com/76520153/169852552-0eb9ab05-aff2-4d6c-ad09-3adcd1c1f541.png" width="100" /><img src="https://user-images.githubusercontent.com/76520153/169852578-4d4aacfd-dbab-4985-b46d-544c9d128762.png" width="100" />
+
 
 Jira Metrics extracts the most common team metrics from your Jira project.
 
@@ -20,6 +22,7 @@ Contains information on each card completed and includes:
 
 ### Summary.csv
 Gives you a "birds-eye-view" of each sprint. You get:
+
 
 - **Throughput:** number of tickets done
 - **Bugs:** number o bugs done
