@@ -20,7 +20,7 @@ cfg_jiraserver = config["jira"]["server"]
 cfg_start = config["start_date"]
 cfg_end = config["end_date"]
 
-cfg_global_sprints = config["sprints"]
+cfg_global_sprint_names = config["sprint_names"]
 cfg_teams = config["teams"]
 cfg_hols = config["holidays"]
 
@@ -69,7 +69,6 @@ def get_tickets(board_columns, query, sprints) -> dict:
     sprint_data = {}
     for key in sprints.keys():
         sprint_data.update({key: []})
-
 
     jira = JIRA({'server': cfg_jiraserver}, basic_auth=(cfg_jirauser, cfg_jirakey))
 
@@ -282,7 +281,7 @@ def generate_reports():
         sprints = get_value_from_dictionary("sprints", team)
 
         if not sprints:
-            sprints = cfg_global_sprints
+            sprints = cfg_global_sprint_names
 
         if csv_details or csv_bugs or csv_summary:
             print('Processing {0}'.format(team['name']))
