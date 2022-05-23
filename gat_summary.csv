@@ -1,2 +1,5 @@
 Sprint,Throughput,Stories,Bugs,Spikes,Tasks,AvgCycleTime,AvgLeadTime,G,A,T
-chile1,7,3,2,0,2,3.0,20.857142857142858
+sprint 1,6,0,0,0,6,30.5,38.166666666666664
+sprint 2,22,0,0,0,22,16.818181818181817,36.54545454545455
+sprint 3,0,0,0,0,0,nan,nan
+sprint 4,0,0,0,0,0,nan,nan
