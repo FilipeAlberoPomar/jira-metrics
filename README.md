@@ -108,6 +108,6 @@ Now you need to add your project information to your _jira_metrics.cfg_ file. It
 
 On MacOS:
 
-```% python3 jira_extractor.py ```
+```% python3 jira_metrics.py ```
 
 
