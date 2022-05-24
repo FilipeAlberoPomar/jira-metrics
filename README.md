@@ -2,34 +2,33 @@
 <img src="https://user-images.githubusercontent.com/76520153/169852552-0eb9ab05-aff2-4d6c-ad09-3adcd1c1f541.png" width="100" /><img src="https://user-images.githubusercontent.com/76520153/169852578-4d4aacfd-dbab-4985-b46d-544c9d128762.png" width="100" />
 
 
-Jira Metrics extracts the most common team metrics from your Jira project.
+Jira Metrics extracts the most common team metrics from your project.
 
 # What you get
 The script will generate two csv files with your sprint data.
 
 ### Details.csv
-Contains information on each card completed and includes:
+Contains information on each ticket **Done** and includes:
 
-- **Ticket number**
+- **Ticket number:** the unique id of the ticket
 - **Ticket type:** story, bug, task
-- **Cycle time**
-- **Lead time**
+- **Cycle time:** number of days "in progress"
+- **Lead time:** number of days between creation and Done
 - **Moved left:** whether the ticket moved left on the board
-- **_"State entrance:"_** showing when the ticket entered each board column
-- **_"Days per state:"_** how many days the ticket stayed on each column 
+- **_"State entrance:"_** shows the date of entrance on each board column
+- **_"Days per state:"_** shows the number of days the ticket was on each board column 
 
 <img width="594" alt="Screenshot 2022-05-23 at 16 04 04" src="https://user-images.githubusercontent.com/76520153/169840793-08114787-2316-43fe-9139-5f5bc89c799f.png">
 
 ### Summary.csv
-Gives you a "birds-eye-view" of each sprint. You get:
+Gives you a "birds-eye-view" of each sprint (for tickets **Done**). It includes:
 
-
-- **Throughput:** number of tickets done
-- **Bugs:** number o bugs done
-- **Spikes:** ditto
-- **Tasks**
-- **Average cycle time**
-- **Average lead time**
+- **Throughput:** number of tickets 
+- **Bugs:** number of bugs
+- **Spikes:** number of spikes
+- **Tasks:** number of tasks
+- **Average cycle time:** average number of days "in progress"
+- **Average lead time:** average number of days between creation to Done
 
 <img width="527" alt="Screenshot 2022-05-23 at 16 07 48" src="https://user-images.githubusercontent.com/76520153/169840851-00caf71f-2ccc-4453-9138-ce4542e5eb4a.png">
 
@@ -47,7 +46,7 @@ On MacOS:
 
 # Usage
 
-### Get your API token
+### Get an API token
 
 Before your first run you will need to generate an API Token from your Jira instance. It's pretty easy:
 
@@ -86,13 +85,16 @@ Now you need to add your project information to your _jira_metrics.cfg_ file. It
 		}
 	],
 	"holidays": ["YYYY-MM-DD", "YYYY-MM-DD"],
-	"jql_done": "project = %s AND issuetype in (Bug, Story) AND status = Done  AND resolutionDate >= '%s' AND resolutionDate <= '%s' order by resolutiondate asc"
+	"jql_done": "project = %s AND status = Done AND resolutionDate >= '%s' AND resolutionDate <= '%s'"
 }
 ```
-- **start_date:** report starting date (weekends are automtically ignored)
-- **end-date:** report end date (weekends are automtically ignored)
-- **sprint_names:** are just nicknames to your sprints to show on the reports
+- **start_date:** report start date
+- **end-date:** report end date
+- **sprint_names:** are just nicknames to your sprints for reporting (add new ones at your heart's content)
 - **jira:** your jira credentials
+	- _user:_ is your username (likely an e-mail address)
+	- _apitoken:_ the string you generated in the first step
+	- _server:_ is the link to your Jira installation 
 - **teams:** 
 	- _name:_ the name of your team
 	- _jira_name:_ the name of the project in Jira
@@ -100,7 +102,7 @@ Now you need to add your project information to your _jira_metrics.cfg_ file. It
 	- _details_filename:_ it's the output filename
 	- _summary_filename:_ it's the other output filename
 - **holidays:** dates to exclude
-- **jql_done:** is the jira query that will retrieve your tickets
+- **jql_done:** is the Jira query that will retrieve your tickets
 
 ## Execution
 
