@@ -9,6 +9,7 @@ from jira import JIRA
 import numpy as np
 from datetime import datetime
 import json
+import warnings
 
 with open("jira_production.cfg") as config_file:
     config = json.load(config_file)
@@ -77,7 +78,7 @@ def get_tickets(board_columns, query, sprints) -> dict:
     increment = 100
 
     #tickets = jira.search_issues(query, maxResults=increment, startAt=start_at, fields='resolutiondate, issuetype, created')
-    print("Here's your JQL: " + query)
+    print("Here's your JQL:\n" + query + "\n")
     tickets = jira.search_issues(query, maxResults=increment, startAt=start_at)
     total_tickets = len(tickets)
 
@@ -254,8 +255,10 @@ def create_sprint_summary_csv(sprint_data, ref_columns, filename):
                 leadtimes.append(card["lead_time"])
 
             try:
-                avg_cycletime = np.average(cycletimes)
-                avg_leadtime = np.average(leadtimes)
+                with warnings.catch_warnings():
+                    warnings.simplefilter("ignore")
+                    avg_cycletime = np.average(cycletimes)
+                    avg_leadtime = np.average(leadtimes)
             except:
                 print("Error generating average cycletime or leadtime")
 
@@ -291,11 +294,8 @@ def generate_reports():
             sprints = cfg_global_sprint_names
 
         if csv_details or csv_bugs or csv_summary:
-            print('Processing {0}'.format(team['name']))
+            print('\nProcessing {0}\n'.format(team['name']))
             query = cfg_jql_done % (jira_name, cfg_start, cfg_end)
-            #query = cfg_jql_done.format(p1=jira_name, p2=cfg_start, p3=cfg_end)
-
-
             sprint_data = get_tickets(board_columns, query, sprints)
 
             if csv_details:
@@ -312,4 +312,5 @@ def main():
     generate_reports()
 
 
-main()
+if __name__ == "__main__":
+    main()
