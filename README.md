@@ -34,9 +34,7 @@ Gives you a "birds-eye-view" of each sprint (for tickets **Done**). It includes:
 
 # Installing
 
-The easiest way to install is just to download _jira_metrics.py_ and _jira_metrics.cfg_ to your computer.  
-
-You will also need to install two project dependencies. 
+First you install [Python 3](https://www.python.org/) (obviously). Then install two project dependencies. 
 
 On MacOS:
 
@@ -44,11 +42,13 @@ On MacOS:
 
 ```% pip3 install numpy ```
 
-# Usage
+Now all you need to do is to download _jira_metrics.py_ and _jira_metrics.cfg_.  
+
+# Configuration
 
 ### Get an API token
 
-Before your first run you will need to generate an API Token from your Jira instance. It's pretty easy:
+Before your first run you will need to generate an API Token from your Jira instance.
 
 1. Click on your profile picture (top right)
 2. Account Settings
@@ -104,10 +104,13 @@ Now you need to add your project information to your _jira_metrics.cfg_ file. It
 - **holidays:** dates to exclude
 - **jql_done:** is the Jira query that will retrieve your tickets
 
-## Execution
+## Usage
+
+Now you have to execute the script. 
 
 On MacOS:
 
 ```% python3 jira_metrics.py ```
 
+Jira Metrics will then read the configuration file and do its magic.
 
