@@ -33,7 +33,7 @@ Gives you a "birds-eye-view" of each sprint (for tickets **Done**). It includes:
 
 <img width="527" alt="Screenshot 2022-05-23 at 16 07 48" src="https://user-images.githubusercontent.com/76520153/169840851-00caf71f-2ccc-4453-9138-ce4542e5eb4a.png">
 
-# Installing
+# Installation
 
 First you install [Python 3](https://www.python.org/) (obviously). Then install two project dependencies. 
 
@@ -105,7 +105,7 @@ Now you need to add your project information to your _jira_metrics.cfg_ file. It
 - **holidays:** dates to exclude
 - **jql_done:** is the Jira query that will retrieve your tickets
 
-## Usage
+## Execution
 
 Now you have to execute the script. 
 
