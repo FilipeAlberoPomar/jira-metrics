@@ -105,7 +105,7 @@ Now you need to add your project information to your _jira_metrics.cfg_ file. It
 - **holidays:** dates to exclude
 - **jql_done:** is the Jira query that will retrieve your tickets
 
-## Execution
+# Execution
 
 Now you have to execute the script. 
 
