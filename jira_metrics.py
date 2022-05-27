@@ -11,7 +11,7 @@ from datetime import datetime
 import json
 import warnings
 
-with open("jira_production.cfg") as config_file:
+with open("jira_metrics.cfg") as config_file:
     config = json.load(config_file)
 
 cfg_jirauser = config["jira"]["user"]
