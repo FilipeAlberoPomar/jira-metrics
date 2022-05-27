@@ -58,7 +58,7 @@ Before your first run you will need to generate an API Token from your Jira inst
 3. Security
 4. API Token > Create
 
-### Configure your project details
+### Add your project details
 
 Now you need to add your project information to your _jira_metrics.cfg_ file. It's actually more simple than it looks.
 
