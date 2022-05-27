@@ -1,8 +1,9 @@
-# Jira Metrics
-<img src="https://user-images.githubusercontent.com/76520153/169852552-0eb9ab05-aff2-4d6c-ad09-3adcd1c1f541.png" width="100" /><img src="https://user-images.githubusercontent.com/76520153/169852578-4d4aacfd-dbab-4985-b46d-544c9d128762.png" width="100" />
-
+# jira-metrics
 
 Jira Metrics extracts the most common team metrics from your project.
+
+<img src="https://user-images.githubusercontent.com/76520153/169852552-0eb9ab05-aff2-4d6c-ad09-3adcd1c1f541.png" width="100" /><img src="https://user-images.githubusercontent.com/76520153/169852578-4d4aacfd-dbab-4985-b46d-544c9d128762.png" width="100" />
+
 
 # What you get
 The script will generate two csv files with your sprint data.
@@ -18,7 +19,8 @@ Contains information on each ticket **Done** and includes:
 - **_"State entrance:"_** shows the date of entrance on each board column
 - **_"Days per state:"_** shows the number of days the ticket was on each board column 
 
-<img width="594" alt="Screenshot 2022-05-23 at 16 04 04" src="https://user-images.githubusercontent.com/76520153/169840793-08114787-2316-43fe-9139-5f5bc89c799f.png">
+<img width="527" alt="Screenshot 2022-05-27 at 09 38 34" src="https://user-images.githubusercontent.com/76520153/170653228-1f485cc2-e2cc-4dac-83f1-80c1f574b70a.png">
+
 
 ### Summary.csv
 Gives you a "birds-eye-view" of each sprint (for tickets **Done**). It includes:
@@ -32,11 +34,9 @@ Gives you a "birds-eye-view" of each sprint (for tickets **Done**). It includes:
 
 <img width="527" alt="Screenshot 2022-05-23 at 16 07 48" src="https://user-images.githubusercontent.com/76520153/169840851-00caf71f-2ccc-4453-9138-ce4542e5eb4a.png">
 
-# Installing
+# Installation
 
-The easiest way to install is just to download _jira_metrics.py_ and _jira_metrics.cfg_ to your computer.  
-
-You will also need to install two project dependencies. 
+First you install [Python 3](https://www.python.org/) (obviously). Then install two project dependencies. 
 
 On MacOS:
 
@@ -44,11 +44,13 @@ On MacOS:
 
 ```% pip3 install numpy ```
 
-# Usage
+Now all you need to do is to download _jira_metrics.py_ and _jira_metrics.cfg_.  
+
+# Configuration
 
 ### Get an API token
 
-Before your first run you will need to generate an API Token from your Jira instance. It's pretty easy:
+Before your first run you will need to generate an API Token from your Jira instance.
 
 1. Click on your profile picture (top right)
 2. Account Settings
@@ -104,10 +106,13 @@ Now you need to add your project information to your _jira_metrics.cfg_ file. It
 - **holidays:** dates to exclude
 - **jql_done:** is the Jira query that will retrieve your tickets
 
-## Execution
+# Execution
+
+Now you have to execute the script. 
 
 On MacOS:
 
-```% python3 jira_extractor.py ```
+```% python3 jira_metrics.py ```
 
+Jira Metrics will then read the configuration file and do its magic.
 
