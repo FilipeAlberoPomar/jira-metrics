@@ -78,7 +78,7 @@ def get_tickets(board_columns, query, sprints) -> dict:
     increment = 100
 
     #tickets = jira.search_issues(query, maxResults=increment, startAt=start_at, fields='resolutiondate, issuetype, created')
-    print("Here's your JQL:\n" + query + "\n")
+    print("Fetching tickets with query:\n" + query + "\n")
     tickets = jira.search_issues(query, maxResults=increment, startAt=start_at)
     total_tickets = len(tickets)
 
@@ -220,11 +220,8 @@ def create_sprint_details_csv(sprint_data, board_columns, filename):
 
 
 # Outputs a SUMMARY CSV with Sprint metrics
-def create_sprint_summary_csv(sprint_data, ref_columns, filename):
+def create_sprint_summary_csv(sprint_data, filename):
     header = "Sprint,Throughput,Stories,Bugs,Spikes,Tasks,AvgCycleTime,AvgLeadTime"
-
-    for column in ref_columns:
-        header = header + ',' + column
 
     with open(filename, "w") as file:
         file.write(header + "\n")
@@ -302,7 +299,7 @@ def generate_reports():
                 create_sprint_details_csv(sprint_data, board_columns, csv_details)
 
             if csv_summary:
-                create_sprint_summary_csv(sprint_data, jira_name, csv_summary)
+                create_sprint_summary_csv(sprint_data, csv_summary)
 
         else:
             print('%s - not processing ' % team['name'])
