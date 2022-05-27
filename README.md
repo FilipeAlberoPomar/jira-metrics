@@ -19,7 +19,8 @@ Contains information on each ticket **Done** and includes:
 - **_"State entrance:"_** shows the date of entrance on each board column
 - **_"Days per state:"_** shows the number of days the ticket was on each board column 
 
-<img width="594" alt="Screenshot 2022-05-23 at 16 04 04" src="https://user-images.githubusercontent.com/76520153/169840793-08114787-2316-43fe-9139-5f5bc89c799f.png">
+<img width="527" alt="Screenshot 2022-05-27 at 09 38 34" src="https://user-images.githubusercontent.com/76520153/170653228-1f485cc2-e2cc-4dac-83f1-80c1f574b70a.png">
+
 
 ### Summary.csv
 Gives you a "birds-eye-view" of each sprint (for tickets **Done**). It includes:
