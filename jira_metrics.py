@@ -11,7 +11,7 @@ from datetime import datetime
 import json
 import warnings
 
-with open("jira_metrics.cfg") as config_file:
+with open("jira_production.cfg") as config_file:
     config = json.load(config_file)
 
 cfg_jirauser = config["jira"]["user"]
@@ -254,8 +254,8 @@ def create_sprint_summary_csv(sprint_data, filename):
             try:
                 with warnings.catch_warnings():
                     warnings.simplefilter("ignore")
-                    avg_cycletime = np.average(cycletimes)
-                    avg_leadtime = np.average(leadtimes)
+                    avg_cycletime = np.round_(np.average(cycletimes),1)
+                    avg_leadtime = np.round_(np.average(leadtimes),1)
             except:
                 print("Error generating average cycletime or leadtime")
 
