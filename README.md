@@ -32,8 +32,11 @@ Gives you a "birds-eye-view" of each sprint (for tickets **Done**). It includes:
 - **Tasks:** number of tasks
 - **Average cycle time:** average number of days "in progress"
 - **Average lead time:** average number of days between creation to Done
+- **85th percentile cycle time:** 85% of all cycle times fall below this 
+- **85th percentile lead time:** 85% of all lead times fall below this 
 
-<img width="600" alt="Screenshot 2022-05-23 at 16 07 48" src="https://user-images.githubusercontent.com/76520153/169840851-00caf71f-2ccc-4453-9138-ce4542e5eb4a.png">
+<img width="600" alt="Screenshot 2022-06-15 at 10 35 57" src="https://user-images.githubusercontent.com/76520153/173782445-626ccd59-4de3-461b-890e-7f0d08016716.png">
+
 
 # Installation
 
