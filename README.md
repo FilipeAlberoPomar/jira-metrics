@@ -110,6 +110,8 @@ Now you need to add your project information to your _jira_metrics.cfg_ file. It
 - **holidays:** dates to exclude
 - **jql_done:** is the Jira query that will retrieve your tickets
 
+_Bonus: this file can be used to generate metrics for multiple teams. In the "teams" element, you can copy and paste the {...} snippet having one per team. And separate each block of {} with a comma._
+
 # Execution
 
 Now you have to execute the script. 
