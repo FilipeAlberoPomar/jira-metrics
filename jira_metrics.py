@@ -221,7 +221,7 @@ def create_sprint_details_csv(sprint_data, board_columns, filename):
 
 # Outputs a SUMMARY CSV with Sprint metrics
 def create_sprint_summary_csv(sprint_data, filename):
-    header = "Sprint,Throughput,Stories,Bugs,Spikes,Tasks,AvgCycleTime,AvgLeadTime"
+    header = "Sprint,Throughput,Stories,Bugs,Spikes,Tasks,AvgCycleTime,AvgLeadTime,85pctCycleTime,85pctLeadTime"
 
     with open(filename, "w") as file:
         file.write(header + "\n")
@@ -235,6 +235,8 @@ def create_sprint_summary_csv(sprint_data, filename):
             task_count = 0
             avg_cycletime = 0
             avg_leadtime = 0
+            pct_cycletime = 0
+            pct_leadtime = 0
             cycletimes = []
             leadtimes= []
            
@@ -252,15 +254,19 @@ def create_sprint_summary_csv(sprint_data, filename):
                 leadtimes.append(card["lead_time"])
 
             try:
-                with warnings.catch_warnings():
+               with warnings.catch_warnings():
                     warnings.simplefilter("ignore")
-                    avg_cycletime = np.round_(np.average(cycletimes),1)
-                    avg_leadtime = np.round_(np.average(leadtimes),1)
+                    avg_leadtime = np.round_(np.average(leadtimes))
+                    avg_cycletime = np.round_(np.average(cycletimes))
+                    
+                    pct_leadtime = np.round_(np.percentile(leadtimes,85))
+                    pct_cycletime = np.round_(np.percentile(cycletimes,85))
+
             except:
                 print("Error generating average cycletime or leadtime")
 
-            line = "%s,%s,%s,%s,%s,%s,%s,%s" % (
-                sprint, tickets_count, story_count, bug_count, spike_count, task_count, avg_cycletime, avg_leadtime)
+            line = "%s,%s,%s,%s,%s,%s,%s,%s,%s,%s" % (
+                sprint, tickets_count, story_count, bug_count, spike_count, task_count, avg_cycletime, avg_leadtime, pct_cycletime, pct_leadtime)
 
             file.write(line + "\n")
 
