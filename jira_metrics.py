@@ -73,11 +73,11 @@ def get_tickets(board_columns, query, sprints) -> dict:
 
     jira = JIRA({'server': cfg_jiraserver}, basic_auth=(cfg_jirauser, cfg_jiratoken))
 
-    #pagination (maxResults is hard-capped at 100 in the backend)
+    # pagination (maxResults is hard-capped at 100 in the backend)
     start_at = 0
     increment = 100
 
-    #tickets = jira.search_issues(query, maxResults=increment, startAt=start_at, fields='resolutiondate, issuetype, created')
+    # tickets=jira.search_issues(query,maxResults=increment,startAt=start_at,fields='resolutiondate,issuetype,created')
     print("Fetching tickets with query:\n" + query + "\n")
     tickets = jira.search_issues(query, maxResults=increment, startAt=start_at)
     total_tickets = len(tickets)
@@ -154,7 +154,7 @@ def get_tickets(board_columns, query, sprints) -> dict:
             card = {
                 "id": ticket.key,
                 "type": ticket.fields.issuetype.name,
-                "summary": ticket.fields.summary.replace(",",";"),
+                "summary": ticket.fields.summary.replace(",", ";"),
                 "sprint": get_sprint_name((ticket.fields.resolutiondate[0:10]), sprints),
                 "creator": ticket.fields.creator,
                 "created_date": ticket.fields.created[0:10],  # string obj, remove time
@@ -170,9 +170,12 @@ def get_tickets(board_columns, query, sprints) -> dict:
 
             sprint_data[card["sprint"]].append(card)
 
-        #pagination snippet
+        # pagination snippet
         start_at = start_at + increment
-        tickets = jira.search_issues(query, maxResults=increment, startAt=start_at, fields='resolutiondate, issuetype, created')
+        tickets = jira.search_issues(query,
+                                     maxResults=increment,
+                                     startAt=start_at,
+                                     fields='resolutiondate, issuetype, created')
         total_tickets = len(tickets)
 
     return sprint_data
@@ -199,8 +202,8 @@ def create_sprint_details_csv(sprint_data, board_columns, filename):
                     file.write(header + "\n")
 
                 line = "%s,%s,%s,%s,%s,%s,%s,%s,%s" % (
-                    card["sprint"], card["id"], card["creator"], card["summary"], card["type"], card["cycle_time"], card["lead_time"],
-                    card["moved_left"], card["cross_layers"])
+                    card["sprint"], card["id"], card["creator"], card["summary"], card["type"],
+                    card["cycle_time"], card["lead_time"],                  card["moved_left"], card["cross_layers"])
 
                 for column in board_columns:
                     if column in card["columns_data"]:
@@ -234,20 +237,19 @@ def create_sprint_summary_csv(sprint_data, filename):
             pct_cycletime = 0
             pct_leadtime = 0
             cycletimes = []
-            leadtimes= []
+            leadtimes = []
            
             for card in cards:
                 cycletimes.append(card["cycle_time"])
                 leadtimes.append(card["lead_time"])
 
             try:
-               with warnings.catch_warnings():
+                with warnings.catch_warnings():
                     warnings.simplefilter("ignore")
-                    avg_leadtime = np.round_(np.average(leadtimes), 2)
-                    avg_cycletime = np.round_(np.average(cycletimes), 2)
-                    
-                    pct_leadtime = np.round_(np.percentile(leadtimes,85), 2)
-                    pct_cycletime = np.round_(np.percentile(cycletimes,85), 2)
+                    avg_leadtime = np.round(np.average(leadtimes), 2)
+                    avg_cycletime = np.round(np.average(cycletimes), 2)
+                    pct_leadtime = np.round(np.percentile(leadtimes, 85), 2)
+                    pct_cycletime = np.round(np.percentile(cycletimes, 85), 2)
 
             except:
                 print("Error generating average cycletime or leadtime")
