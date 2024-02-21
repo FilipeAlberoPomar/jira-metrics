@@ -154,6 +154,7 @@ def get_tickets(board_columns, query, sprints) -> dict:
             card = {
                 "id": ticket.key,
                 "type": ticket.fields.issuetype.name,
+                "summary": ticket.fields.summary.replace(",",";"),
                 "sprint": get_sprint_name((ticket.fields.resolutiondate[0:10]), sprints),
                 "creator": ticket.fields.creator,
                 "created_date": ticket.fields.created[0:10],  # string obj, remove time
@@ -164,7 +165,6 @@ def get_tickets(board_columns, query, sprints) -> dict:
                 "moved_left": moved_left,
                 "cross_layers": cross_layers,
                 "columns_data": board_transitions,  # contains dictionary (key = column_name, values: date_in, time_in)
-                "summary": ticket.fields.summary, 
                 # "raw_fields": ticket.raw['fields'] # useful for debugging hairy issues
             }
 
@@ -190,7 +190,7 @@ def create_sprint_details_csv(sprint_data, board_columns, filename):
                 # Prints the header before the first entry
                 if print_header:
                     print_header = False
-                    header = "Sprint,Ticket,Creator,Type,CycleTime,LeadTime,MovedLeft,CrossLayers"
+                    header = "Sprint,Ticket,Creator,Summary,Type,CycleTime,LeadTime,MovedLeft,CrossLayers"
 
                     for column in board_columns:
                         header += "," + column + " Date"
@@ -198,8 +198,8 @@ def create_sprint_details_csv(sprint_data, board_columns, filename):
                         header += "," + column + " Days"
                     file.write(header + "\n")
 
-                line = "%s,%s,%s,%s,%s,%s,%s,%s" % (
-                    card["sprint"], card["id"], card["creator"], card["type"], card["cycle_time"], card["lead_time"],
+                line = "%s,%s,%s,%s,%s,%s,%s,%s,%s" % (
+                    card["sprint"], card["id"], card["creator"], card["summary"], card["type"], card["cycle_time"], card["lead_time"],
                     card["moved_left"], card["cross_layers"])
 
                 for column in board_columns:
